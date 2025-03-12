@@ -2,6 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
+
+import time
 driver = webdriver.Chrome()
 driver.get("https://online.ktmb.com.my/")
 try:
@@ -15,6 +18,7 @@ try:
             "payment-modal-btn" in element.get_attribute("class") and
             element.get_attribute("data-dismiss") == "modal" and
             element.text == "OK"):
+                time.sleep(2)
                 element.click()
                 print("Button found and clicked!")
                 break
@@ -26,7 +30,6 @@ try:
         EC.element_to_be_clickable((By.CLASS_NAME, "select2-selection"))
     )
     dropdown.click()
-
     # Step 2: Locate the search input field and type "JB SENTRAL"
     search_input = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, "select2-search__field"))
